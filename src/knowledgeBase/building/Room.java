@@ -1,7 +1,7 @@
 package knowledgeBase.building;
 
+import agents.victim.RegularVictim;
 import knowledgeBase.emergencyState.EmergencyState;
-import knowledgeBase.victim.RegularVictim;
 
 import java.util.ArrayList;
 
