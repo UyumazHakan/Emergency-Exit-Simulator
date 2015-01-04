@@ -1,7 +1,9 @@
-package knowledgeBase.building;
+package knowledgeBase.building.model;
 
+import agents.emergency.EmergencyBehavior;
+import agents.emergency.fire.FireBehavior;
+import agents.emergency.gas.GasBehavior;
 import agents.victim.RegularVictim;
-import knowledgeBase.emergencyState.EmergencyState;
 
 import java.util.ArrayList;
 
@@ -11,12 +13,14 @@ import java.util.ArrayList;
 public class Room {
     protected Room leftNeighborRoom;
     protected Room rightNeighborRoom;
-    private ArrayList<EmergencyState> emergencyStates;
+    private ArrayList<EmergencyBehavior> emergencyStates;
     private ArrayList<RegularVictim> victims;
 
     protected Room() {
-        emergencyStates = new ArrayList<EmergencyState>();
+        emergencyStates = new ArrayList<EmergencyBehavior>();
         victims = new ArrayList<RegularVictim>();
+        emergencyStates.add(new FireBehavior());
+        emergencyStates.add(new GasBehavior());
     }
 
     public Room(boolean isLeftCorner) {
@@ -46,6 +50,15 @@ public class Room {
 
     public void setRightNeighborRoom(Room rightNeighborRoom) {
         this.rightNeighborRoom = rightNeighborRoom;
+    }
+
+    public void passTurn() {
+
+    }
+
+    @Override
+    public String toString() {
+        return "-Room-";
     }
 }
 

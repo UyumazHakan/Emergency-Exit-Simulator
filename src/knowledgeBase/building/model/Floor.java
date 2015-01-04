@@ -1,4 +1,4 @@
-package knowledgeBase.building;
+package knowledgeBase.building.model;
 
 /**
  * Created by Administrator on 03.01.2015.
@@ -17,7 +17,7 @@ public class Floor {
     private void generateRoom(int roomNo) {
         if (roomNo == 0)
             generateLeftCornerRoom();
-        else if (roomNo == rooms.length)
+        else if (roomNo == rooms.length - 1)
             generateRightCornerRoom();
         else
             generateMiddleRoom(roomNo);
@@ -38,5 +38,18 @@ public class Floor {
         Room leftNeighbor = rooms[roomNo - 1];
         Room rightNeighbor = rooms[roomNo + 1];
         rooms[roomNo] = new Room(leftNeighbor, rightNeighbor);
+    }
+
+    public Room[] getRooms() {
+        return rooms;
+    }
+
+    @Override
+    public String toString() {
+        String value = "--- Floor " + floorNo + " ---\n";
+        for (Room room : rooms)
+            value += room + "\n";
+        value += "!-- Floor " + floorNo + " --!";
+        return value;
     }
 }
