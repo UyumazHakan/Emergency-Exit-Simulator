@@ -6,14 +6,22 @@ package knowledgeBase.building.model;
 public class Floor {
     private Room[] rooms;
     private int floorNo;
+    private Floor upNeighbor;
+    private Floor downNeighbor;
 
-    public Floor(int floorNo, int numberOfRooms) {
+
+    public Floor(int floorNo, int numberOfRooms, Floor upNeighbor) {
+        this.upNeighbor = upNeighbor;
+        if (this.upNeighbor != null) this.upNeighbor.setDownNeighbor(this);
         rooms = new Room[numberOfRooms];
         this.floorNo = floorNo;
         for (int i = 0; i < numberOfRooms; i++)
             generateRoom(i);
     }
 
+    public void setDownNeighbor(Floor downNeighbor) {
+        this.downNeighbor = downNeighbor;
+    }
     private void generateRoom(int roomNo) {
         if (roomNo == 0)
             generateLeftCornerRoom();
@@ -21,17 +29,30 @@ public class Floor {
             generateRightCornerRoom();
         else
             generateMiddleRoom(roomNo);
+        if (floorNo == 0)
+            rooms[roomNo].setVerticalNeighbor(Direction.NORTH);
+        else {
+            int numUpNeighborRooms = upNeighbor.rooms.length;
+            int numRooms = rooms.length;
+            int upNeighborNumber = (int) (((double) numUpNeighborRooms * roomNo) / numRooms);
+            Room upNeighborRoom = upNeighbor.rooms[upNeighborNumber];
+            rooms[roomNo].setUpNeighborRoom(upNeighborRoom);
+        }
 
     }
 
+    public void makeBottomRow() {
+        for (Room room : rooms)
+            room.setVerticalNeighbor(Direction.SOUTH);
+    }
     private void generateLeftCornerRoom() {
-        rooms[0] = new Room(true);
+        rooms[0] = new Room(Direction.WEST);
     }
 
     private void generateRightCornerRoom() {
         int roomNo = rooms.length - 1;
         Room leftNeighbor = rooms[roomNo - 1];
-        rooms[roomNo] = new Room(leftNeighbor, false);
+        rooms[roomNo] = new Room(leftNeighbor, Direction.EAST);
     }
 
     private void generateMiddleRoom(int roomNo) {

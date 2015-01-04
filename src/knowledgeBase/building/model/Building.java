@@ -16,6 +16,7 @@ public class Building {
             generateFloor(currentFloor, roomsToUse);
             remainingFloors--;
             remainingRooms -= roomsToUse;
+            if (remainingFloors == 0) floors[currentFloor].makeBottomRow();
             currentFloor++;
         }
 
@@ -30,7 +31,12 @@ public class Building {
     }
 
     private void generateFloor(int floorNo, int numberOfRooms) {
-        Floor generatedFloor = new Floor(floorNo, numberOfRooms);
+        Floor generatedFloor;
+        if (floorNo != 0) {
+            Floor upNeighbor = floors[floorNo - 1];
+            generatedFloor = new Floor(floorNo, numberOfRooms, upNeighbor);
+        } else
+            generatedFloor = new Floor(floorNo, numberOfRooms, null);
         floors[floorNo] = generatedFloor;
     }
 
