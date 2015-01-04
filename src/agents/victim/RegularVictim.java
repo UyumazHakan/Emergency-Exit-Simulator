@@ -1,14 +1,15 @@
 package agents.victim;
 
 
-import knowledgeBase.emergencyState.EmergencyState;
+import agents.Agent;
+import agents.emergency.EmergencyBehavior;
 
 import java.util.ArrayList;
 
 /**
  * Created by Administrator on 03.01.2015.
  */
-public class RegularVictim {
+public class RegularVictim implements Agent {
     private VictimAction nextAction;
 
     private VictimAction getNextAction() {
@@ -17,12 +18,12 @@ public class RegularVictim {
         return value;
     }
 
-    public VictimAction ask(ArrayList<EmergencyState> states) {
+    public VictimAction ask(ArrayList<EmergencyBehavior> states) {
         decide(states);
         return getNextAction();
     }
 
-    private void decide(ArrayList<EmergencyState> states) {
+    private void decide(ArrayList<EmergencyBehavior> states) {
 
     }
 }
