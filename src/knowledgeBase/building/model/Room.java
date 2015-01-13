@@ -21,14 +21,16 @@ public class Room {
     protected Room rightNeighborRoom;
     protected Room upNeighborRoom;
     protected Room downNeighborRoom;
-    private ArrayList<EmergencyBehavior> emergencyStates;
+    private ArrayList<EmergencyState> emergencyStates;
+    private ArrayList<EmergencyBehavior> emergencyBehaviors;
     private ArrayList<RegularVictim> victims;
 
     protected Room() {
-        emergencyStates = new ArrayList<EmergencyBehavior>();
+        emergencyStates = new ArrayList<EmergencyState>();
+        emergencyBehaviors = new ArrayList<EmergencyBehavior>();
         victims = new ArrayList<RegularVictim>();
-        emergencyStates.add(new FireBehavior());
-        emergencyStates.add(new GasBehavior());
+        emergencyBehaviors.add(new FireBehavior());
+        emergencyBehaviors.add(new GasBehavior());
     }
 
     public Room(Direction direction) {
@@ -52,12 +54,16 @@ public class Room {
         }
     }
 
-    public void setVerticalNeighbor(Direction direction) {
-        if (direction == Direction.NORTH) {
-            this.upNeighborRoom = new Outside(this, direction);
-        } else {
-            this.downNeighborRoom = new Outside(this, direction);
-        }
+    public Room getDownNeighborRoom() {
+        return downNeighborRoom;
+    }
+
+    public void setDownNeighborRoom(Room downNeighborRoom) {
+        this.downNeighborRoom = downNeighborRoom;
+    }
+
+    public Room getUpNeighborRoom() {
+        return upNeighborRoom;
     }
 
     public void setUpNeighborRoom(Room upNeighborRoom) {
@@ -65,8 +71,12 @@ public class Room {
         this.upNeighborRoom.setDownNeighborRoom(this);
     }
 
-    public void setDownNeighborRoom(Room downNeighborRoom) {
-        this.downNeighborRoom = downNeighborRoom;
+    public void setVerticalNeighbor(Direction direction) {
+        if (direction == Direction.NORTH) {
+            this.upNeighborRoom = new Outside(this, direction);
+        } else {
+            this.downNeighborRoom = new Outside(this, direction);
+        }
     }
 
     public RegularVictim removeVictim(RegularVictim victim) {
@@ -76,9 +86,14 @@ public class Room {
 
     public void addVictim(RegularVictim victim) {
         victims.add(victim);
+        victim.setCurrentRoom(this);
     }
 
-    public ArrayList<EmergencyBehavior> getEmergencyStates() {
+    public ArrayList<EmergencyBehavior> getEmergencyBehaviors() {
+        return emergencyBehaviors;
+    }
+
+    public ArrayList<EmergencyState> getEmergencyStates() {
         return emergencyStates;
     }
 

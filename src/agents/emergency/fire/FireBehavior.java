@@ -2,6 +2,7 @@ package agents.emergency.fire;
 
 
 import agents.emergency.EmergencyBehavior;
+import knowledgeBase.building.model.EmergencyState;
 
 import java.util.ArrayList;
 
@@ -18,12 +19,12 @@ public class FireBehavior implements EmergencyBehavior {
         return value;
     }
 
-    public FireAction ask(ArrayList<EmergencyBehavior> states) {
+    public FireAction ask(ArrayList<EmergencyState> states) {
         decide(states);
         return getNextAction();
     }
 
-    private void decide(ArrayList<EmergencyBehavior> states) {
+    private void decide(ArrayList<EmergencyState> states) {
 
     }
 }

@@ -44,7 +44,7 @@ public class BuildingController {
     }
 
     private void evolveRoom() {
-        for (EmergencyBehavior emergency : currentRoom.getEmergencyStates())
+        for (EmergencyBehavior emergency : currentRoom.getEmergencyBehaviors())
             askEmergency(emergency);
         for (RegularVictim victim : currentRoom.getVictims())
             askVictim(victim);

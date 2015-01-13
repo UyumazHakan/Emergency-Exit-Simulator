@@ -1,6 +1,6 @@
 package agents;
 
-import agents.emergency.EmergencyBehavior;
+import knowledgeBase.building.model.EmergencyState;
 
 import java.util.ArrayList;
 
@@ -9,5 +9,5 @@ import java.util.ArrayList;
  */
 public interface Agent {
 
-    public Action ask(ArrayList<EmergencyBehavior> states);
+    public Action ask(ArrayList<EmergencyState> states);
 }
