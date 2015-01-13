@@ -14,6 +14,14 @@ public class RegularVictim implements Agent {
     private VictimAction nextAction;
     private VictimAction lastAction;
     private Room currentRoom;
+    private boolean isDeath;
+
+    public RegularVictim(Room currentRoom) {
+        this.currentRoom = currentRoom;
+        nextAction = VictimAction.DO_NOTHING;
+        lastAction = VictimAction.DO_NOTHING;
+        isDeath = false;
+    }
 
     public void setCurrentRoom(Room currentRoom) {
         this.currentRoom = currentRoom;
@@ -26,6 +34,9 @@ public class RegularVictim implements Agent {
         return value;
     }
 
+    public void die() {
+        isDeath = true;
+    }
     public VictimAction ask(ArrayList<EmergencyState> states) {
         decide(states);
         return getNextAction();

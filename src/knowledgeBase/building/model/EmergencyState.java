@@ -5,5 +5,6 @@ package knowledgeBase.building.model;
  */
 public enum EmergencyState {
     LOW_HEAT, MEDIUM_HEAT, HIGH_HEAT,
-    LOW_DENSITY, MEDIUM_DENSITY, HIGH_DENSITY
+    LOW_DENSITY, MEDIUM_DENSITY, HIGH_DENSITY,
+    EXPLODED
 }

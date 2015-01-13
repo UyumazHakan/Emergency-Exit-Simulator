@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class FireBehavior implements EmergencyBehavior {
     private FireAction nextAction;
     private int heat;
+    private boolean isSpread;
 
     private FireAction getNextAction() {
         FireAction value = nextAction;
@@ -25,6 +26,15 @@ public class FireBehavior implements EmergencyBehavior {
     }
 
     private void decide(ArrayList<EmergencyState> states) {
-
+        if (heat > 0) heat++;
+        if (states.contains(EmergencyState.LOW_HEAT) && heat == 0)
+            heat = 1;
+        else if (!isSpread && heat > 0) {
+            isSpread = true;
+            nextAction = FireAction.SPREAD;
+        } else if (heat == 6 || heat == 9)
+            nextAction = FireAction.INCREASE_HEAT;
+        else if (heat > 15)
+            nextAction = FireAction.EXPLODE;
     }
 }
