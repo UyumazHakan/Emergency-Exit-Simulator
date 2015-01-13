@@ -94,6 +94,13 @@ public class RegularVictim implements Agent {
 
     }
 
+    @Override
+    public String toString() {
+        String value = "Victim";
+        if (isDeath) value += " - DEATH";
+        return value;
+    }
+
     private void revertAction() {
         switch (lastAction) {
             case DO_NOTHING:

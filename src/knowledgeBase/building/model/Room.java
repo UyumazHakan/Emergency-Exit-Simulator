@@ -135,7 +135,10 @@ public class Room {
     public String toString() {
         String value = "-Room-";
         for (EmergencyState state : emergencyStates) {
-            value += state + "\n";
+            value += "\n" + state;
+        }
+        for (RegularVictim victim : victims) {
+            value += "\n" + victim;
         }
         return value;
     }
@@ -153,6 +156,14 @@ public class Room {
             rightNeighborRoom = new Outside(this, Direction.EAST);
         if (leftNeighborRoom == null)
             leftNeighborRoom = new Outside(this, Direction.WEST);
+    }
+
+    public void leakGas() {
+        emergencyStates.add(EmergencyState.LOW_DENSITY);
+    }
+
+    public void addVictim() {
+        victims.add(new RegularVictim(this));
     }
 }
 

@@ -61,4 +61,13 @@ public class Building {
     public void startFire() {
         floors[new Random().nextInt(floors.length)].startFire();
     }
+
+    public void leakGas() {
+        floors[new Random().nextInt(floors.length)].leakGas();
+    }
+
+    public void addVictims(int numberOfVictims) {
+        for (int i = 0; i < numberOfVictims; i++)
+            floors[new Random().nextInt(floors.length)].addVictim();
+    }
 }

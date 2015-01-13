@@ -91,4 +91,12 @@ public class Floor {
     public void startFire() {
         rooms[new Random().nextInt(rooms.length)].startFire();
     }
+
+    public void leakGas() {
+        rooms[new Random().nextInt(rooms.length)].leakGas();
+    }
+
+    public void addVictim() {
+        rooms[new Random().nextInt(rooms.length)].addVictim();
+    }
 }

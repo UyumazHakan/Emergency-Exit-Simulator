@@ -74,8 +74,18 @@ public class BuildingController {
     private void evolveRoom() {
         for (EmergencyBehavior emergency : currentRoom.getEmergencyBehaviors())
             askEmergency(emergency);
-        for (RegularVictim victim : currentRoom.getVictims())
+        for (int i = 0; i < currentRoom.getVictims().size(); i++) {
+            RegularVictim victim = currentRoom.getVictims().get(i);
             askVictim(victim);
+        }
+
+        checkExplosion();
+    }
+
+    private void checkExplosion() {
+        if (currentRoom.getEmergencyStates().contains(EmergencyState.HIGH_DENSITY) &&
+                currentRoom.getEmergencyStates().contains(EmergencyState.HIGH_HEAT))
+            currentRoom.addState(EmergencyState.EXPLODED);
     }
 
     private void askVictim(RegularVictim victim) {
