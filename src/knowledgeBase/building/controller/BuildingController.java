@@ -12,6 +12,10 @@ import knowledgeBase.building.model.EmergencyState;
 import knowledgeBase.building.model.Floor;
 import knowledgeBase.building.model.Room;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -22,6 +26,7 @@ public class BuildingController {
     private Building building;
     private Floor[] floors;
     private ArrayList<Room> rooms;
+    private int evolveStage;
 
     private Room currentRoom;
 
@@ -30,11 +35,10 @@ public class BuildingController {
         this.building = building;
         this.floors = this.building.getFloors();
         this.rooms = new ArrayList<Room>();
+        this.evolveStage = 1;
         for (Floor floor : this.floors) {
             rooms.addAll(Arrays.asList(floor.getRooms()));
         }
-        System.out.println(building);
-        System.out.println(rooms.size());
     }
 
     public void evolve() {
@@ -42,7 +46,29 @@ public class BuildingController {
             currentRoom = room;
             evolveRoom();
         }
-        System.out.println(building);
+
+        printStage();
+        evolveStage++;
+    }
+
+    private void printStage() {
+        try {
+
+            String content = building.toString();
+
+            File file = new File("stages/stage" + evolveStage + ".txt");
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            FileWriter fw = new FileWriter(file.getAbsoluteFile());
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(content);
+            bw.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void evolveRoom() {

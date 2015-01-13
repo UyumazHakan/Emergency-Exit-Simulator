@@ -99,7 +99,8 @@ public class Room {
     }
 
     public void addState(EmergencyState state) {
-        emergencyStates.add(state);
+        if (!emergencyStates.contains(state))
+            emergencyStates.add(state);
     }
 
     public ArrayList<EmergencyBehavior> getEmergencyBehaviors() {
