@@ -1,5 +1,7 @@
 package knowledgeBase.building.model;
 
+import java.util.Random;
+
 /**
  * Created by Administrator on 03.01.2015.
  */
@@ -19,6 +21,8 @@ public class Building {
             if (remainingFloors == 0) floors[currentFloor].makeBottomRow();
             currentFloor++;
         }
+        for (Floor floor : floors)
+            floor.setOutsideRooms();
 
     }
 
@@ -52,5 +56,9 @@ public class Building {
         }
         value += "!--- Building ---!";
         return value;
+    }
+
+    public void startFire() {
+        floors[new Random().nextInt(floors.length)].startFire();
     }
 }

@@ -1,5 +1,7 @@
 package knowledgeBase.building.model;
 
+import java.util.Random;
+
 /**
  * Created by Administrator on 03.01.2015.
  */
@@ -17,6 +19,17 @@ public class Floor {
         this.floorNo = floorNo;
         for (int i = 0; i < numberOfRooms; i++)
             generateRoom(i);
+
+        for (int i = 0; i < rooms.length - 1; i++) {
+            rooms[i].setRightNeighborRoom(rooms[i + 1]);
+        }
+
+    }
+
+    public void setOutsideRooms() {
+        for (int i = 0; i < rooms.length; i++) {
+            rooms[i].setOutsideRooms();
+        }
     }
 
     public void setDownNeighbor(Floor downNeighbor) {
@@ -38,6 +51,7 @@ public class Floor {
             Room upNeighborRoom = upNeighbor.rooms[upNeighborNumber];
             rooms[roomNo].setUpNeighborRoom(upNeighborRoom);
         }
+        rooms[roomNo].setRoomNo(roomNo);
 
     }
 
@@ -72,5 +86,9 @@ public class Floor {
             value += room + "\n";
         value += "!-- Floor " + floorNo + " --!";
         return value;
+    }
+
+    public void startFire() {
+        rooms[new Random().nextInt(rooms.length)].startFire();
     }
 }

@@ -42,6 +42,7 @@ public class BuildingController {
             currentRoom = room;
             evolveRoom();
         }
+        System.out.println(building);
     }
 
     private void evolveRoom() {
@@ -115,19 +116,19 @@ public class BuildingController {
         if (!leftNeighborStates.contains(EmergencyState.HIGH_DENSITY) ||
                 !leftNeighborStates.contains(EmergencyState.MEDIUM_DENSITY) ||
                 !leftNeighborStates.contains(EmergencyState.LOW_DENSITY))
-            leftNeighborStates.add(EmergencyState.LOW_DENSITY);
+            currentRoom.getLeftNeighborRoom().addState(EmergencyState.LOW_DENSITY);
         if (!rightNeighborStates.contains(EmergencyState.HIGH_DENSITY) ||
                 !rightNeighborStates.contains(EmergencyState.MEDIUM_DENSITY) ||
                 !rightNeighborStates.contains(EmergencyState.LOW_DENSITY))
-            rightNeighborStates.add(EmergencyState.LOW_DENSITY);
+            currentRoom.getRightNeighborRoom().addState(EmergencyState.LOW_DENSITY);
         if (!upNeighborStates.contains(EmergencyState.HIGH_DENSITY) ||
                 !upNeighborStates.contains(EmergencyState.MEDIUM_DENSITY) ||
                 !upNeighborStates.contains(EmergencyState.LOW_DENSITY))
-            upNeighborStates.add(EmergencyState.LOW_DENSITY);
+            currentRoom.getUpNeighborRoom().addState(EmergencyState.LOW_DENSITY);
         if (!downNeighborStates.contains(EmergencyState.HIGH_DENSITY) ||
                 !downNeighborStates.contains(EmergencyState.MEDIUM_DENSITY) ||
                 !downNeighborStates.contains(EmergencyState.LOW_DENSITY))
-            downNeighborStates.add(EmergencyState.LOW_DENSITY);
+            currentRoom.getDownNeighborRoom().addState(EmergencyState.LOW_DENSITY);
     }
 
     private void increaseDensity() {
@@ -170,6 +171,8 @@ public class BuildingController {
     }
 
     private void fireSpread() {
+        if (currentRoom.getDownNeighborRoom() == null)
+            System.out.println("adasda" + currentRoom.getRoomNo());
         ArrayList<EmergencyState> leftNeighborStates = currentRoom.getLeftNeighborRoom().getEmergencyStates();
         ArrayList<EmergencyState> rightNeighborStates = currentRoom.getRightNeighborRoom().getEmergencyStates();
         ArrayList<EmergencyState> upNeighborStates = currentRoom.getUpNeighborRoom().getEmergencyStates();
@@ -177,19 +180,19 @@ public class BuildingController {
         if (!leftNeighborStates.contains(EmergencyState.HIGH_HEAT) ||
                 !leftNeighborStates.contains(EmergencyState.MEDIUM_HEAT) ||
                 !leftNeighborStates.contains(EmergencyState.LOW_HEAT))
-            leftNeighborStates.add(EmergencyState.LOW_HEAT);
+            currentRoom.getLeftNeighborRoom().addState(EmergencyState.LOW_HEAT);
         if (!rightNeighborStates.contains(EmergencyState.HIGH_HEAT) ||
                 !rightNeighborStates.contains(EmergencyState.MEDIUM_HEAT) ||
                 !rightNeighborStates.contains(EmergencyState.LOW_HEAT))
-            rightNeighborStates.add(EmergencyState.LOW_HEAT);
+            currentRoom.getRightNeighborRoom().addState(EmergencyState.LOW_HEAT);
         if (!upNeighborStates.contains(EmergencyState.HIGH_HEAT) ||
                 !upNeighborStates.contains(EmergencyState.MEDIUM_HEAT) ||
                 !upNeighborStates.contains(EmergencyState.LOW_HEAT))
-            upNeighborStates.add(EmergencyState.LOW_HEAT);
+            currentRoom.getUpNeighborRoom().addState(EmergencyState.LOW_HEAT);
         if (!downNeighborStates.contains(EmergencyState.HIGH_HEAT) ||
                 !downNeighborStates.contains(EmergencyState.MEDIUM_HEAT) ||
                 !downNeighborStates.contains(EmergencyState.LOW_HEAT))
-            downNeighborStates.add(EmergencyState.LOW_HEAT);
+            currentRoom.getDownNeighborRoom().addState(EmergencyState.LOW_HEAT);
     }
 
     private void increaseHeat() {

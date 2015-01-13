@@ -14,6 +14,12 @@ public class FireBehavior implements EmergencyBehavior {
     private int heat;
     private boolean isSpread;
 
+    public FireBehavior() {
+        nextAction = FireAction.DO_NOTHING;
+        heat = 0;
+        isSpread = false;
+    }
+
     private FireAction getNextAction() {
         FireAction value = nextAction;
         nextAction = FireAction.DO_NOTHING;

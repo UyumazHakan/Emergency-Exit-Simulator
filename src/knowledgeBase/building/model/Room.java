@@ -24,6 +24,7 @@ public class Room {
     private ArrayList<EmergencyState> emergencyStates;
     private ArrayList<EmergencyBehavior> emergencyBehaviors;
     private ArrayList<RegularVictim> victims;
+    private int roomNo;
 
     protected Room() {
         emergencyStates = new ArrayList<EmergencyState>();
@@ -52,6 +53,14 @@ public class Room {
             this.leftNeighborRoom = neighborRoom;
             this.rightNeighborRoom = new Outside(this, direction);
         }
+    }
+
+    public int getRoomNo() {
+        return roomNo;
+    }
+
+    public void setRoomNo(int roomNo) {
+        this.roomNo = roomNo;
     }
 
     public Room getDownNeighborRoom() {
@@ -89,6 +98,10 @@ public class Room {
         victim.setCurrentRoom(this);
     }
 
+    public void addState(EmergencyState state) {
+        emergencyStates.add(state);
+    }
+
     public ArrayList<EmergencyBehavior> getEmergencyBehaviors() {
         return emergencyBehaviors;
     }
@@ -119,7 +132,26 @@ public class Room {
 
     @Override
     public String toString() {
-        return "-Room-";
+        String value = "-Room-";
+        for (EmergencyState state : emergencyStates) {
+            value += state + "\n";
+        }
+        return value;
+    }
+
+    public void startFire() {
+        emergencyStates.add(EmergencyState.LOW_HEAT);
+    }
+
+    public void setOutsideRooms() {
+        if (upNeighborRoom == null)
+            upNeighborRoom = new Outside(this, Direction.NORTH);
+        if (downNeighborRoom == null)
+            downNeighborRoom = new Outside(this, Direction.SOUTH);
+        if (rightNeighborRoom == null)
+            rightNeighborRoom = new Outside(this, Direction.EAST);
+        if (leftNeighborRoom == null)
+            leftNeighborRoom = new Outside(this, Direction.WEST);
     }
 }
 
@@ -145,6 +177,13 @@ class Outside extends Room {
         setOthersToSelf();
     }
 
+    public void addState(EmergencyState state) {
+
+    }
+
+    public ArrayList<EmergencyState> getEmergencyStates() {
+        return new ArrayList<EmergencyState>();
+    }
     private void setOthersToSelf() {
         if (downNeighborRoom == null) downNeighborRoom = this;
         if (upNeighborRoom == null) upNeighborRoom = this;
